@@ -5,8 +5,12 @@ import android.os.Bundle
 import mx.jairaviles.androidevernotejobexample.R
 import mx.jairaviles.androidevernotejobexample.di.injector.Injectable
 import mx.jairaviles.androidevernotejobexample.notification.ShowNotificationJob
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), Injectable, MainContract.View {
+
+    @Inject
+    lateinit var presenter: MainPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -15,7 +19,7 @@ class MainActivity : AppCompatActivity(), Injectable, MainContract.View {
     }
 
     override fun startClock() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        presenter.getClockTime()
     }
 
 }

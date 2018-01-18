@@ -16,7 +16,7 @@ class App : Application(), HasActivityInjector {
 
     override fun onCreate() {
         super.onCreate()
-        JobManager.create(this).addJobCreator(AppJobCreator())
+        //JobManager.create(this).addJobCreator(AppJobCreator())
     }
 
     override fun activityInjector(): AndroidInjector<Activity> = dispatchingAndroidInjector

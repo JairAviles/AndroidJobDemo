@@ -13,11 +13,13 @@ import mx.jairaviles.androidevernotejobexample.main.MainActivity
 
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
+import javax.inject.Inject
 
-class ShowNotificationJob : Job() {
+open class ShowNotificationJob
+    @Inject constructor(): Job() {
 
     companion object {
-        @JvmField val TAG = "show_notification_job_tag"
+        const val TAG = "show_notification_job_tag"
 
         @JvmStatic fun schedulePeriodic() {
             JobRequest.Builder(ShowNotificationJob.TAG)
