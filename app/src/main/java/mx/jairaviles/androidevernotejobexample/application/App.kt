@@ -2,11 +2,10 @@ package mx.jairaviles.androidevernotejobexample.application
 
 import android.app.Activity
 import android.app.Application
-import com.evernote.android.job.JobManager
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
-import mx.jairaviles.androidevernotejobexample.core.job.AppJobCreator
+import mx.jairaviles.androidevernotejobexample.di.injector.AppInjector
 import javax.inject.Inject
 
 class App : Application(), HasActivityInjector {
@@ -16,7 +15,7 @@ class App : Application(), HasActivityInjector {
 
     override fun onCreate() {
         super.onCreate()
-        //JobManager.create(this).addJobCreator(AppJobCreator())
+        AppInjector.init(this)
     }
 
     override fun activityInjector(): AndroidInjector<Activity> = dispatchingAndroidInjector
