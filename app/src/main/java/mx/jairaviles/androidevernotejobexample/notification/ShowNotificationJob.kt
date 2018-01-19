@@ -1,22 +1,24 @@
 package mx.jairaviles.androidevernotejobexample.notification
 
-import android.app.PendingIntent;
-import android.content.Intent;
-import android.graphics.Color;
-import android.support.v4.app.NotificationManagerCompat;
-import android.support.v7.app.NotificationCompat;
+import android.app.PendingIntent
+import android.content.Intent
+import android.graphics.Color
+import android.support.v4.app.NotificationManagerCompat
+import android.support.v4.app.NotificationCompat
 
-import com.evernote.android.job.Job;
-import com.evernote.android.job.JobRequest;
+import com.evernote.android.job.Job
+import com.evernote.android.job.JobRequest
 import mx.jairaviles.androidevernotejobexample.R
+import mx.jairaviles.androidevernotejobexample.helper.SharedPrefsHelper.Companion.LAST_TIME_SAVED
 import mx.jairaviles.androidevernotejobexample.main.MainActivity
+import mx.jairaviles.androidevernotejobexample.manager.DataManager
+import java.util.*
 
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 open class ShowNotificationJob
-    @Inject constructor(): Job() {
+    @Inject constructor(private val mDataManager: DataManager): Job() {
 
     companion object {
         const val TAG = "show_notification_job_tag"
@@ -43,9 +45,9 @@ open class ShowNotificationJob
         val pi = PendingIntent.getActivity(context, 0,
                 Intent(context, MainActivity::class.java), 0)
 
-        val notification = NotificationCompat.Builder(context)
+        val notification = NotificationCompat.Builder(context, "MyNotifications")
                 .setContentTitle("Android Job Demo")
-                .setContentText("Notification from Android Job Demo App.")
+                .setContentText("Last time registered: ${mDataManager.getValue(LAST_TIME_SAVED)}")
                 .setAutoCancel(true)
                 .setContentIntent(pi)
                 .setSmallIcon(R.mipmap.ic_launcher)
@@ -57,6 +59,19 @@ open class ShowNotificationJob
         NotificationManagerCompat.from(context)
                 .notify(Random().nextInt(), notification)
 
+        updateLastTime()
+
         return Job.Result.SUCCESS
     }
+
+    private fun updateLastTime() {
+        val cal = Calendar.getInstance()
+        val formatHour = String.format("%02d", cal.get(Calendar.HOUR_OF_DAY))
+        val formatMinute = String.format("%02d", cal.get(Calendar.MINUTE))
+        val formatSecond = String.format("%02d", cal.get(Calendar.SECOND))
+
+        mDataManager.setValue("LAST_TIME_SAVED", "$formatHour:$formatMinute:$formatSecond")
+
+    }
+
 }

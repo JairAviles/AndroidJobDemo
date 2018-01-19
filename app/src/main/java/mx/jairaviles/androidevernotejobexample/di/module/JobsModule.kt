@@ -10,6 +10,7 @@ import dagger.Provides
 import dagger.multibindings.IntoMap
 import dagger.multibindings.StringKey
 import mx.jairaviles.androidevernotejobexample.core.job.AppJobCreator
+import mx.jairaviles.androidevernotejobexample.manager.DataManager
 import mx.jairaviles.androidevernotejobexample.notification.ShowNotificationJob
 import javax.inject.Singleton
 
@@ -27,6 +28,6 @@ class JobsModule {
 
     @Provides @IntoMap
     @StringKey(ShowNotificationJob.TAG)
-    fun providesShowNotificationJob() : Job = ShowNotificationJob()
+    fun providesShowNotificationJob(mDataManager: DataManager) : Job = ShowNotificationJob(mDataManager)
 
 }

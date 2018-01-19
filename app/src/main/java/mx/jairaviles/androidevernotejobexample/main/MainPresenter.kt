@@ -2,12 +2,14 @@ package mx.jairaviles.androidevernotejobexample.main
 
 import com.evernote.android.job.JobManager
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 import javax.inject.Inject
+import mx.jairaviles.androidevernotejobexample.manager.DataManager
+import java.util.*
 
 class MainPresenter
 @Inject constructor(
         private val view: MainActivity,
+        private val mDataManager: DataManager,
         private val mJobManager: JobManager): MainContract.Presenter, AnkoLogger {
 
     init {
@@ -15,11 +17,17 @@ class MainPresenter
     }
 
     override fun init() {
-        info("Do something when init on Presenter...")
+        mDataManager.setValue("LAST_TIME_SAVED", getClockTime())
     }
 
     override fun getClockTime(): String {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val cal = Calendar.getInstance()
+        val formatHour = String.format("%02d", cal.get(Calendar.HOUR_OF_DAY))
+        val formatMinute = String.format("%02d", cal.get(Calendar.MINUTE))
+        val formatSecond = String.format("%02d", cal.get(Calendar.SECOND))
+
+        return "$formatHour:$formatMinute:$formatSecond"
+
     }
 
 }
