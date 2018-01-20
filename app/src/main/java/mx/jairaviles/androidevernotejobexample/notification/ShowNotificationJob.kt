@@ -42,26 +42,31 @@ open class ShowNotificationJob
     }
 
     override fun onRunJob(params: Params): Result {
-        val pi = PendingIntent.getActivity(context, 0,
-                Intent(context, MainActivity::class.java), 0)
+        try {
+            val pi = PendingIntent.getActivity(context, 0,
+                    Intent(context, MainActivity::class.java), 0)
 
-        val notification = NotificationCompat.Builder(context, "MyNotifications")
-                .setContentTitle("Android Job Demo")
-                .setContentText("Last time registered: ${mDataManager.getValue(LAST_TIME_SAVED)}")
-                .setAutoCancel(true)
-                .setContentIntent(pi)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setShowWhen(true)
-                .setColor(Color.RED)
-                .setLocalOnly(true)
-                .build()
+            val notification = NotificationCompat.Builder(context, "MyNotifications")
+                    .setContentTitle("Android Job Demo")
+                    .setContentText("Last time registered: ${mDataManager.getValue(LAST_TIME_SAVED)}")
+                    .setAutoCancel(true)
+                    .setContentIntent(pi)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setShowWhen(true)
+                    .setColor(Color.RED)
+                    .setLocalOnly(true)
+                    .build()
 
-        NotificationManagerCompat.from(context)
-                .notify(Random().nextInt(), notification)
+            NotificationManagerCompat.from(context)
+                    .notify(Random().nextInt(), notification)
 
-        updateLastTime()
+            updateLastTime()
 
-        return Job.Result.SUCCESS
+            return Job.Result.SUCCESS
+        } catch(e : Exception) {
+            e.printStackTrace()
+            return Job.Result.FAILURE
+        }
     }
 
     private fun updateLastTime() {
