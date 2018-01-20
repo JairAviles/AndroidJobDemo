@@ -12,7 +12,7 @@ class AppModule(private val mApplication : Application) {
 
     @Provides
     @Singleton
-    fun providesApplication(): Application = mApplication
+    fun provideApplication(): Application = mApplication
 
     @Provides
     @Singleton

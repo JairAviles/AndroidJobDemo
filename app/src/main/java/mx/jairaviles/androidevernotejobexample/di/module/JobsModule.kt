@@ -17,13 +17,13 @@ class JobsModule {
 
     @Provides
     @Singleton
-    fun providesManager(mApplication: Application, appJobCreator: AppJobCreator) : JobManager {
+    fun provideJobManager(mApplication: Application, appJobCreator: AppJobCreator) : JobManager {
         JobManager.create(mApplication).addJobCreator(appJobCreator)
         return JobManager.instance()
     }
 
     @Provides @IntoMap
     @StringKey(ShowNotificationJob.TAG)
-    fun providesShowNotificationJob(mDataManager: DataManager) : Job = ShowNotificationJob(mDataManager)
+    fun provideShowNotificationJob(mDataManager: DataManager) : Job = ShowNotificationJob(mDataManager)
 
 }
