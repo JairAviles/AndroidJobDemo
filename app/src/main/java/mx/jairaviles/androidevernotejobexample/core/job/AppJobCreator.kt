@@ -8,10 +8,9 @@ import javax.inject.Singleton
 
 @Singleton
 class AppJobCreator
-    @Inject constructor(): JobCreator {
-
-    @Inject
-    lateinit var jobs: Map<String, Provider<Job>>
+    @Inject constructor(
+            private val jobs: @JvmSuppressWildcards Map<String, Provider<Job>>
+    ): JobCreator {
 
     override fun create(tag: String): Job? {
         val jobProvider = jobs[tag]
