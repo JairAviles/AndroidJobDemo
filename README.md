@@ -12,7 +12,10 @@ This is a sample project based on the [@adavis](https://github.com/adavis) tutor
 * Job definition is in notification package.
 * AppModule provides the application object, the application context object and the SharedPreferences instance.
 * JobModule provides the JobManager instance and the Job instance of ShowNotificationJob class.
-* On the JobCreator onRun method, it was injected a lateinit var of the job instead of a Map<String, Provider<Job>>, due to the fact that it was throwing an Exception when Building the project regarding to the Map. Cannot be provided without an @Provides- or @Produces-annotated method.
+* On the JobCreator onRun method, it was injected a lateinit var of the job instead of a Map<String, Provider<Job>>, due to the fact that it was throwing an Exception when Building the project regarding to the Map. Cannot be provided without an @Provides- or @Produces-annotated method. [FIXED]
+
+## Update
+* Last Exception reported was fixed thanks to [@adavis](https://github.com/adavis) as she reply to me regarding the [issue 1](https://github.com/JairAviles/AndroidJobDemo/issues/1) of this project. App runs perfectly!
 
 License
 ----
