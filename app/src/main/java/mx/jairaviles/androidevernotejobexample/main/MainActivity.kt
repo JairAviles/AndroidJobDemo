@@ -24,7 +24,8 @@ class MainActivity : AppCompatActivity(), Injectable, MainContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         startClock()
-        ShowNotificationJob.schedulePeriodic()
+        //ShowNotificationJob.schedulePeriodic() // Schedules job to execute each 15 minutes
+        ShowNotificationJob.request() // Executes job immediately
     }
 
     override fun startClock() {
